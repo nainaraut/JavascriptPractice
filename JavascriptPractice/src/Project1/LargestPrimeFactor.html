@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope){
+        $scope.largestPrimeFactor = 0;
+        var num = 600851475143;
+        var i;
+        for(var i=2;i<=num;i++) {
+          if(num % i == 0) {
+            num /= i;
+            i--;
+          }
+        }
+        $scope.largestPrimeFactor = i;
+      }]);
+    })(window.angular);
+  </script>
+  <title>largest prime factor of the number 600851475143 </title>
 </head>
-<body>
-
+<body ng-app="myApp" ng-controller="myController">
+<h1>largest prime factor of the number 600851475143 : {{largestPrimeFactor}}</h1>
+</body>
 </body>
 </html>

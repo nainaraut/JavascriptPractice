@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.diff = 0;
+        var sumOfSq = 0;
+        var sum = 0;
+        for(var i=1;i <= 100;i++) {
+          sumOfSq = sumOfSq + i*i;
+          sum = sum + i;
+        }
+        $scope.diff = Math.abs(sumOfSq - sum*sum);
+      }]);
+    })(window.angular);
+  </script>
+  <title>Sum of the even-valued terms</title>
 </head>
-<body>
-
+<body ng-app="myApp" ng-controller="myController">
+<h1> difference between the sum of the squares of the first one hundred natural numbers and the square of the sum : {{diff}}</h1>
+</body>
 </body>
 </html>

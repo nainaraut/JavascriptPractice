@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope){
+        $scope.sum = 0;
+        for(var i=0;i<1000;i++) {
+	        if(i % 3 == 0 || i % 5 == 0) {
+		        $scope.sum = $scope.sum + i;
+	        }
+	      }
+      }]);
+    })(window.angular);
+  </script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+  <h1>The sum of multiples of 5 or 3 from 1 to 1000 is : {{sum}}</h1>
+</body>
+</html>

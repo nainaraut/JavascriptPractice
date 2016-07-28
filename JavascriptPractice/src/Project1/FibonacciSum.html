@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.sum = 0;
+        var end = 400000;
+        var num1 = 0,num2 = 1,num3 = 0;
+        while(true) {
+          num3 = num1 + num2;
+          if(num3 % 2 == 0) {
+            $scope.sum = $scope.sum + num3;
+          }
+          if(num3 > end){
+            break;
+          }
+          num1 = num2;
+          num2 = num3;
+        }
+      }]);
+    })(window.angular);
+  </script>
+  <title>Sum of the even-valued terms</title>
 </head>
-<body>
-
+<body ng-app="myApp" ng-controller="myController">
+  <h1>The sum of the even-valued termsFibonacci sequence whose values do not exceed four million : {{sum}}</h1>
+</body>
 </body>
 </html>
