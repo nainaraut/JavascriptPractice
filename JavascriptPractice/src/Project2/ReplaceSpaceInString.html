@@ -1,0 +1,37 @@
+<!--Replace spaces in a string with '20%'-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.str = "My name is naina";
+        $scope.replacedString = [];
+        var index = 0;
+        for(var i=0;i<$scope.str.length;i++) {
+          if($scope.str.charAt(i) == ' '){
+            $scope.replacedString.push("2");
+            $scope.replacedString.push("0");
+            $scope.replacedString.push("%");
+          }
+          else {
+            $scope.replacedString.push($scope.str.charAt(i));
+          }
+        }
+        $scope.arrayToString = function(string){
+          return string.join("");
+        };
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Sum of the even-valued terms</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1> The replaced string is : {{arrayToString(replacedString)}}</h1>
+</body>
+</body>
+</html>

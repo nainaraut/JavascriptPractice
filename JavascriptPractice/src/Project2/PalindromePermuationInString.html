@@ -1,0 +1,34 @@
+<!--Given a String, to check if it is a permutation of a palindrome -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.isPermutationOfPalindrome = false;
+        $scope.str1 = "tactcoa";
+        var oddCount = 0;
+        var table = new Array(100).fill(0);
+        for(var i=0;i<$scope.str1.length;i++) {
+          var letter = $scope.str1.charAt(i).charCodeAt() - 97;
+          table[letter] = table[letter] + 1;
+          if(table[letter] % 2 == 1)
+            oddCount++;
+          else
+            oddCount--;
+        }
+        $scope.isPermutationOfPalindrome = oddCount <= 1;
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Sum of the even-valued terms</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1> Is the given String a permutation of palindrome : {{isPermutationOfPalindrome}}</h1>
+</body>
+</body>
+</html>

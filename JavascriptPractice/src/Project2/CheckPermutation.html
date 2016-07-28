@@ -1,0 +1,37 @@
+<!--Given two Strings, decide if one is a permutation of the other -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.isPermutation = true;
+        $scope.str1 = "abcd";
+        $scope.str2 = "dcba";
+        var count = [];
+        if($scope.str1.length != $scope.str2.length){
+          $scope.isPermutation = false;
+        }
+        else {
+          for(var i=0;i<$scope.str1.length;i++) {
+            count[$scope.str1.charAt(i)] = true;
+          }
+          for(var i=0;i<$scope.str2.length;i++) {
+            if(!count[$scope.str2.charAt(i)])
+              $scope.isPermutation = false;
+          }
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Sum of the even-valued terms</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1> Are the Strings {{str1}} and {{str2}} permutation : {{isPermutation}}</h1>
+</body>
+</body>
+</html>
