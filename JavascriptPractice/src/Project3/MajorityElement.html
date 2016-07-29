@@ -1,0 +1,45 @@
+<!--A majority element in an array A[] of size n is an element that appears more than n/2 times
+(and hence there is at most one such element).
+Write a function which takes an array and emits the majority element (if it exists), otherwise prints NONE-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [3,4,3,4,4,4];
+        var maxIndex = 0,count = 0,num = 0;
+        $scope.majorityElement = 0;
+        for(var i = 0;i<numArray.length;i++){
+          if(numArray[maxIndex] == numArray[i]){
+            count++;
+          }
+          else {
+            count--
+            if(count == 0) {
+              maxIndex = i;
+              count = 1;
+            }
+          }
+        }
+        for(var i = 0;i<numArray.length;i++){
+          if(numArray[i] == numArray[maxIndex]){
+            num++;
+          }
+        }
+        if(num > numArray.length/2) {
+          $scope.majorityElement = numArray[num];
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Reverse an array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Majority Element is : {{majorityElement}}</h1>
+</body>
+</html>

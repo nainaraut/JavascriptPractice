@@ -1,0 +1,38 @@
+<!--given an array A[] of n numbers and another number x, determines whether or not there exist
+two elements in S whose sum is exactly x.  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [6,9,12,13,2,8];
+        var sum = 11;
+        numArray.sort();
+        $scope.existsSum = false;
+        var l = 0 , r = numArray.length;
+        while(l < r){
+          if(numArray[l] + numArray[r] > sum){
+            r--;
+          }
+          else if(numArray[l] + numArray[r] < sum) {
+            l++;
+          }
+          else {
+            $scope.existsSum = true;
+            break;
+          }
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Sum exists in an array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>There exist two elements in array whose sum is exactly x : {{existsSum}}</h1>
+</body>
+</html>

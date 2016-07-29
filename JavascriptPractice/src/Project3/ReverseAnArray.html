@@ -1,0 +1,27 @@
+<!--Reverse an array -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [3,8,1,9,2,5];
+        var l = 0, r = numArray.length;
+        while(l<r) {
+         var temp = numArray[l];
+         numArray[l] = numArray[r];
+         numArray[r] = temp;
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Reverse an array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1> </h1>
+</body>
+</html>

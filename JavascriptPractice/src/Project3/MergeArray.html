@@ -1,0 +1,31 @@
+<!--Merge an array of size n into another array of size m+n in sorted order-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray1 = [6,9,12,13];
+        var numArray2 = [2,5,7,14];
+        var totalLength = numArray1.length + numArray2.length - 1;
+        var array1Index = numArray1.length - 1,array2Index = numArray1.length - 1;
+        while(totalLength > -1) {
+          if(numArray1[array1Index] > numArray2[array2Index]){
+              array1Index[totalLength--] = numArray1[array1Index--];
+          }
+          else {
+            array1Index[totalLength--] = numArray2[array2Index--];
+          }
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Merge an array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+</body>
+</html>

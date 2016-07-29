@@ -1,0 +1,26 @@
+<!--Given an array of positive integers. All numbers occur even number of times except one
+number which occurs odd number of times. Find the number in O(n) time & constant space. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2,3,2,9,1,9,1];
+        $scope.output = 0;
+        for(var i=0;i<numArray.length;i++) {
+          $scope.output = $scope.output ^ numArray[i];
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Number occurs odd number of times</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Odd digit is : {{output}}</h1>
+</body>
+</html>
