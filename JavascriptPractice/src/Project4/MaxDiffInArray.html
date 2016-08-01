@@ -1,0 +1,43 @@
+<!--Given an array arr[], find the maximum j – i such that arr[j] > arr[i] -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [34, 8, 10, 3, 2, 80, 30, 33, 1];
+        var leftMinSum = [], RightMaxSum = [];
+        var len = numArray.length;
+        leftMinSum[0] = numArray[0];
+        RightMaxSum[len-1] = numArray[len-1];
+        for(var i=1;i<len;i++) {
+          leftMinSum[i] = Math.min(numArray[i],leftMinSum[i - 1]);
+        }
+        for(var i=len-2;i > -1;i--) {
+            RightMaxSum[i] = Math.max(numArray[i],RightMaxSum[i + 1]);
+        }
+        $scope.maxDiff = -1;
+        var l = 0,r = 0;
+        while(l < len && r < len) {
+          console.log(RightMaxSum[r]+" "+leftMinSum[l]);
+          if(RightMaxSum[r] > leftMinSum[l]) {
+            $scope.maxDiff = Math.max($scope.maxDiff,r-l);
+            r++;
+          }
+          else {
+            l++;
+          }
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Maximum j – i</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Maximum j – i such that arr[j] > arr[i] : {{maxDiff}}</h1>
+</body>
+</html>

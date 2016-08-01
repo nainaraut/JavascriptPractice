@@ -1,0 +1,42 @@
+<!--Given an unsorted array of numbers, write a function that returns true if array consists of consecutive numbers. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [5, 2, 3, 1, 4];
+        var len = numArray.length, min = Number.MAX_VALUE, max = 0, visited=[];
+        $scope.consecutive = false;
+        for(var i=0;i<len;i++) {
+          min = Math.min(min,numArray[i]);
+          max = Math.max(max,numArray[i]);
+        }
+        if(max - min + 1 == len) {
+          for(var i = 0;i<len;i++) {
+            if(visited[numArray[i] - min]){
+              $scope.consecutive = false;
+              break;
+            }
+            else {
+              visited[numArray[i] - min] = true;
+            }
+            $scope.consecutive = true;
+          }
+        }
+        else {
+          $scope.consecutive = false;
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Array consists of consecutive numbers : {{consecutive}}</h1>
+</body>
+</html>

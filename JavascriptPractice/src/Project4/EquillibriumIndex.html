@@ -1,0 +1,39 @@
+<!--Equilibrium index of an array is an index such that the sum of elements at
+lower indexes is equal to the sum of elements at higher indexes.
+ Write a function int equilibrium(int[] arr, int n); that given a sequence arr[] of size n,
+ returns an equilibrium index (if any) or -1 if no equilibrium indexes exist.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [-7, 1, 5, 2, -4, 3, 0];
+        var len = numArray.length,sum = 0,lsum = 0,rsum = 0;
+        $scope.equilibriumIndex = false;
+        for(var i=0;i<len;i++){
+          sum = sum + numArray[i];
+        }
+        for(var i=0;i<len;i++){
+          sum = sum + numArray[i];
+          lsum = sum - numArray[i];
+          rsum = sum - lsum;
+          if(lsum == rsum) {
+            $scope.equilibriumIndex = true;
+            break;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Equilibrium index of an array is : {{equilibriumIndex}}</h1>
+</body>
+</html>

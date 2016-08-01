@@ -1,0 +1,41 @@
+<!--Given a sorted array of n integers where each integer is in the range from 0 to m-1 and m > n.
+Find the smallest number that is missing from the array. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [0, 1, 2, 6, 9];
+        var start = 0, end = numArray.length - 1;
+        $scope.minMissingElement = findMinDist(numArray,start,end);
+
+        function findMinDist(numArray,start,end) {
+          if(start > end){
+            return end + 1;
+          }
+          if(start != numArray[start]) {
+            return start;
+          }
+          var mid = (start + end)/2;
+          if(mid < numArray[mid]){
+            return findMinDist(numArray,start,mid);
+          }
+          else {
+            return findMinDist(numArray,mid+1,end);
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>smallest number</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Smallest number that is missing from the array : {{minMissingElement}}</h1>
+</body>
+</html>

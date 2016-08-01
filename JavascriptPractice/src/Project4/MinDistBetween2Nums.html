@@ -1,0 +1,41 @@
+<!--Given an unsorted array arr[] and two numbers x and y, find the minimum distance between x and y in arr[].
+The array might also contain duplicates. You may assume that both x and y are different and present in arr[]. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3];
+        var x = 3, y = 6;
+        $scope.minDist = Number.MAX_VALUE;
+        var l = 0 , r = numArray.length;
+        var prev = 0;
+        for(var i=0;i<r;i++) {
+          if(numArray[i] == x || numArray[i] == y) {
+            prev = i;
+            break;
+          }
+        }
+        while(l < r){
+          if(numArray[l] == x || numArray[l] == y) {
+            if((numArray[l] != numArray[prev]) && ($scope.minDist > l - prev)) {
+                $scope.minDist = l - prev;
+            }
+            prev = l;
+          }
+          l++;
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>minimum distance</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>minimum distance between x and y in array is : {{minDist}}</h1>
+</body>
+</html>
