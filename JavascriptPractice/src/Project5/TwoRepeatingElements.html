@@ -1,0 +1,33 @@
+<!--You are given an array of n+2 elements. All elements of the array are in range 1 to n.
+And all elements occur once except two numbers which occur twice. Find the two repeating numbers. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 3, 2, 2, 1];
+        var len = numArray.length;
+        $scope.repeatingNums = [];
+        for(var i=0;i<len;i++){
+          if(numArray[Math.abs(numArray[i])] > 0){
+            numArray[Math.abs(numArray[i])] = -numArray[Math.abs(numArray[i])];
+          }
+          else {
+            $scope.repeatingNums.push(numArray[i]);
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Equilibrium index of an array is : {{-repeatingNums[0]}}</h1>
+</body>
+</html>

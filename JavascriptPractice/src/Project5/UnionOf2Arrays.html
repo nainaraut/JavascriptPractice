@@ -1,0 +1,42 @@
+<!--Given two sorted arrays, find their union -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray1 = [1, 3, 4, 5, 7];
+        var numArray2 = [2, 3, 5, 6];
+        var i = 0, j = 0, index = 0;
+        $scope.union = [];
+        while(i < numArray1.length && j < numArray2.length){
+          if(numArray1[i] < numArray2[j]){
+             $scope.union[index++] = numArray1[i];
+             i++;
+          }
+          else if(numArray1[i] > numArray2[j]) {
+            $scope.union[index++] = numArray2[j];
+            j++;
+          }
+          else {
+            $scope.union[index++] = numArray1[i];
+             i++;
+             j++;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Union of Array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<span ng-repeat="num in union">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

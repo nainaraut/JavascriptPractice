@@ -1,0 +1,41 @@
+<!--Given an array A[], write a function that segregates even and odd numbers.
+The functions should put all even numbers first, and then odd numbers -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.numArray = [12, 34, 45, 9, 8, 90, 3];
+        var l = 0, r = $scope.numArray.length;
+        while(l < r){
+          while($scope.numArray[l] % 2 == 0 && l < r) {
+            l++;
+          }
+          while($scope.numArray[r] % 2 == 1 && l < r) {
+            r--;
+          }
+          if(l < r) {
+            var temp = $scope.numArray[l];
+            $scope.numArray[l] = $scope.numArray[r];
+            $scope.numArray[r] = temp;
+            l++;
+            r--;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>segregate even and odd numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<span ng-repeat="num in numArray">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

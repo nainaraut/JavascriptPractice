@@ -1,0 +1,33 @@
+<!--Given an array arr[] of integers, find out the difference between any
+two elements such that larger element appears after the smaller number in arr[]. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2, 3, 10, 6, 4, 8, 1];
+        var len = numArray.length, minElement = numArray[0];
+        $scope.maxDiff = -1;
+        for(var i=0;i<len;i++){
+          if(numArray[i] - minElement > $scope.maxDiff) {
+            $scope.maxDiff = numArray[i] - minElement;
+          }
+          if(numArray[i] < minElement){
+            minElement = numArray[i];
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Max Difference between two elemnts is : {{maxDiff}}</h1>
+</body>
+</html>
