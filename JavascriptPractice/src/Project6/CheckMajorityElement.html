@@ -1,0 +1,47 @@
+<!--Program to check for majority element in a sorted array-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2,3,4,4,4,4];
+        var x = 4;
+        var len = numArray.length;
+        var maxStart = binaryCheck(0, len);
+        console.log(maxStart);
+        if(maxStart == -1) {
+           $scope.majorityElement = false;
+        }
+        else if(((maxStart + len/2) <= (len - 1)) && numArray[maxStart + len/2] == x) {
+          $scope.majorityElement = true;
+        }
+        else{
+          $scope.majorityElement = false;
+        }
+        function binaryCheck(start,end) {
+          var mid = (start + end) /2 ;
+          if(mid == 0 || x > numArray[mid-1] && numArray[mid] == x) {
+            return mid;
+          }
+          if(x > numArray[mid]) {
+            return binaryCheck(numArray[mid+1],end);
+          }
+          else {
+            return binaryCheck(start,numArray[mid-1]);
+          }
+          return -1;
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Check maximum element</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Is the given element the maximum ocurring element: {{majorityElement}}</h1>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!--Given an array of random numbers, Push all the zero’s of a given array to the end of the array.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.numArray = [1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9];
+        var len = $scope.numArray.length,index = 0;
+        for(var i=0; i < len;i++){
+          if($scope.numArray[i] != 0){
+            $scope.numArray[index++] = $scope.numArray[i];
+          }
+        }
+        for(var i = index;i<len;i++){
+          $scope.numArray[i] = 0;
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>zeros moved to end</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>All zeros moved to end:</h1>
+<span ng-repeat="num in numArray track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!--Given an array of positive numbers, find the maximum sum of a subsequence with the constraint that
+no 2 numbers in the sequence should be adjacent in the array -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [16, 17, 4, 3, 5, 2];
+        var len = numArray.length,sum1 = 0,sum2 = 0;
+        for(var i=0; i < len;i+=2){
+          sum1 = sum1 + numArray[i];
+        }
+        for(var i=1; i < len;i+=2){
+          sum2 = sum2 + numArray[i];
+        }
+        (sum1 > sum2 ? $scope.maxSum = sum1 : $scope.maxSum = sum2);
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Adjacent maximum element</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Maximum sum of a subsequence with non adjacent elements is: {{maxSum}}</h1>
+</body>
+</html>
