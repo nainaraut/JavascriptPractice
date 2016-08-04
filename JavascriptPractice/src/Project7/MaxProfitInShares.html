@@ -1,0 +1,40 @@
+<!--The cost of a stock on each day is given in an array, find the max profit that you can make by buying and selling in those days.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [100, 180, 260, 310, 40, 535, 695];
+        var len = numArray.length, i = 0;
+        $scope.interval = [];
+        while(i < len - 1){
+          while(numArray[i+1] <= numArray[i]){
+           i++;
+          }
+          if(i == len - 1) {
+            break;
+          }
+          $scope.interval.push({'buy' : numArray[i]});
+          while(numArray[i+1] >= numArray[i]){
+           i++;
+          }
+          $scope.interval.push({'sell' : numArray[i]});
+        }
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Adjacent maximum element</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>max profit that you can make by buying and selling:</h1>
+<span ng-repeat="num in interval track by $index">
+  <h3 ng-if="num.buy">Buy : {{num.buy}} </h3>
+  <h3 ng-if="num.sell">Sell : {{num.sell}} </h3>
+</span>
+</body>
+</html>

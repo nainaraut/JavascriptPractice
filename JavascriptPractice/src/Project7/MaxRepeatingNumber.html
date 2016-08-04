@@ -1,0 +1,38 @@
+<!--Given an array of size n, the array contains numbers in range from 0 to k-1
+where k is a positive integer and k <= n. Find the maximum repeating number in this array.  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2, 3, 3, 5, 3, 4, 1, 7];
+        var len = numArray.length, count = 0, maxIndex = 0;
+        $scope.maxRepeating = 0;
+        for(var i=0; i < len;i+=2) {
+          if(numArray[maxIndex] == numArray[i]) {
+            count++;
+          }
+          else {
+            count--;
+            if(count == 0) {
+              maxIndex = i;
+              count = 1;
+            }
+          }
+        }
+        $scope.maxRepeating = numArray[maxIndex];
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Max Repeating</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Maximum repeating elements is: {{maxRepeating}}</h1>
+</body>
+</html>
