@@ -1,0 +1,52 @@
+<!--Given an array of n integers, find the 3 elements such that a[i] < a[j] < a[k] and i < j < k in 0(n) time.
+If there are multiple such triplets, then print any one of them. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [12, 11, 10, 5, 6, 2, 30];
+        var len = numArray.length, minArray = [], maxArray=[], min = 0, max = len-1;
+        $scope.sortedSubSeq = [];
+        minArray[0] = -1;
+        maxArray[len-1] = -1;
+        for(var i=1;i<len;i++){
+          if(numArray[i] <= numArray[min]){
+             min = i;
+             minArray[i] = -1;
+          }
+          minArray[i] = min;
+        }
+        for(var i=len-2; i > -1; i--){
+          if(numArray[i] >= numArray[max]){
+             max = i;
+             maxArray[i] = -1;
+          }
+          maxArray[i] = max;
+        }
+        for(var i=0;i<len;i++){
+          if(minArray[i] != -1 && maxArray[i] != -1){
+            $scope.sortedSubSeq.push(numArray[minArray[i]]);
+            $scope.sortedSubSeq.push(numArray[i]);
+            $scope.sortedSubSeq.push(numArray[maxArray[i]]);
+            break;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>sorted sub sequence</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Size 3 sorted sub sequence :</h1>
+<span ng-repeat="num in sortedSubSeq track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!--Given an array and a value, find if there is a triplet in array whose sum is equal to the given value.
+If there is such a triplet present in array, then print the triplet and return true. Else return false -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 4, 45, 6, 10, 8];
+        var len = numArray.length, reqSum = 22;
+        $scope.triplet = [];
+        numArray.sort();
+        for(var i = 0; i < len-2 ; i++) {
+          var l = i + 1;
+          var r = len - 1;
+          while(l < r) {
+            if(numArray[i] + numArray[l] + numArray[r] == reqSum){
+              $scope.triplet.push(numArray[i]);
+              $scope.triplet.push(numArray[l]);
+              $scope.triplet.push(numArray[r]);
+              break;
+            }
+            else if(numArray[i] + numArray[l] + numArray[r] > reqSum){
+              r--;
+            }
+            else {
+              l++;
+            }
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Triplet in array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Triplet in array whose sum is equal to the given value : </h1>
+<span ng-repeat="num in triplet track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

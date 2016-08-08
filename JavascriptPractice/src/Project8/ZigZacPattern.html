@@ -1,0 +1,44 @@
+<!--Given an array of distinct elements, rearrange the elements of array in zig-zag fashion in O(n) time.
+The converted array should be in form a < b > c < d > e < f -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.numArray = [4, 3, 7, 8, 6, 2, 1], flag = true;
+        var len = $scope.numArray.length;
+        for(var i=0;i<len-1;i++) {
+          if(flag) {
+            if($scope.numArray[i] > $scope.numArray[i+1]){
+              var temp = $scope.numArray[i];
+              $scope.numArray[i] = $scope.numArray[i+1];
+              $scope.numArray[i+1] = temp;
+            }
+          }
+          else {
+            if($scope.numArray[i] < $scope.numArray[i+1]){
+              var temp = $scope.numArray[i];
+              $scope.numArray[i] = $scope.numArray[i+1];
+              $scope.numArray[i+1] = temp;
+            }
+          }
+          flag = !flag;
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>ZigZac Array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>ZigZac arranged array :</h1>
+<span ng-repeat="num in numArray track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

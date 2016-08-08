@@ -1,0 +1,37 @@
+<!--Given an unsorted array that contains even number of occurrences for all numbers except two numbers.
+Find the two numbers which have odd occurrences in O(n) time complexity and O(1) extra space. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [4, 2, 4, 5, 2, 3, 3, 1];
+        var len = numArray.length - 2, xor_num = numArray[0], set_bit;
+        $scope.x = 0, $scope.y = 0
+        for(var i=1;i<len;i++){
+          xor_num = xor_num ^ numArray[i];
+        }
+        set_bit = xor_num & ~(xor_num - 1);
+        for(var i=0;i<len;i++){
+          if(numArray[i] & set_bit) {
+            $scope.x = $scope.x ^ numArray[i];
+          }
+          else {
+            $scope.y = $scope.y ^ numArray[i];
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>odd occurrences</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Two numbers which have odd occurrences : {{x}} and {{y}}</h1>
+</body>
+</html>

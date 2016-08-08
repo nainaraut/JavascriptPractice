@@ -1,0 +1,47 @@
+<!--You are given an unsorted array with both positive and negative elements. You have to find the smallest positive
+number missing from the array in O(n) time using constant extra space. You can modify the original array. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2, 3, 7, 6, 8, -1, -10, 15];
+        var len = numArray.length , r = len-1, l = 0;
+        $scope.smallestPosNum = [];
+        while(l < r) {
+          while(numArray[l] > 0){
+            l++;
+          }
+          while(numArray[r] < 0){
+            r--;
+          }
+          var temp = numArray[l];
+          numArray[l] = numArray[r];
+          numArray[r] = temp;
+        }
+        for(var i=0; i<l-1 ; i++) {
+          if((Math.abs(numArray[i]) - 1 < len) && (Math.abs(numArray[i]) - 1 > 0)){
+            numArray[Math.abs(numArray[i]) - 1] = -numArray[Math.abs(numArray[i]) - 1];
+          }
+        }
+        for(var i=0; i<len ; i++) {
+          if(numArray[i] > 0) {
+            $scope.smallestPosNum = i+1;
+            break;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>smallest positive number</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Smallest positive number missing from the array : {{smallestPosNum}}</h1>
+</body>
+</html>
