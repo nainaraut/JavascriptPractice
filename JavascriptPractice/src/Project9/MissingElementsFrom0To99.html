@@ -1,0 +1,52 @@
+<!--Given an array of integers print the missing elements that lie in range 0-99.
+If there are more than one missing, collate them, otherwise just print the number. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [88, 105, 3, 2, 200, 0, 10];
+        var len = numArray.length, count = [], i=0;
+        $scope.missing = [];
+        for(var j=0;j<len;j++) {
+          if(numArray[j] < 100){
+            count[numArray[j]] = true;
+          }
+        }
+        while(i<count.length) {
+          if(count[i] == undefined) {
+            if(count[i+1] == undefined) {
+              var j = i+1;
+              while(!count[j]) {
+               j++;
+              }
+              $scope.missing.push(i+'-'+j);
+              i = j;
+            }
+            else {
+              $scope.missing.push(i);
+              i++;
+            }
+          }
+          else {
+            i++;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Missing numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Missing elements that lie in range 0-99</h1>
+<span ng-repeat="num in missing track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

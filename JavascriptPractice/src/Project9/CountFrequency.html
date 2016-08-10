@@ -1,0 +1,38 @@
+<!--Given an unsorted array of n integers which can contain integers from 1 to n. Some elements can be
+repeated multiple times and some other elements can be absent from the array. Count frequency of all elements
+that are present and print the missing elements. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [2, 3, 3, 2, 5];
+        var len = numArray.length;
+        $scope.freq = [];
+        for(var i=0;i<len;i++){
+          numArray[i] = numArray[i] - 1;
+        }
+        for(var i=0;i<len;i++){
+          numArray[numArray[i]%len] = numArray[numArray[i]%len] + len;
+        }
+        for(var i=0;i<len;i++) {
+          $scope.freq[i] = Math.floor( numArray[i] / len);
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Frequency of numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Frequency of numbers</h1>
+<span ng-repeat="num in freq track by $index">
+  <h3>Frequency of {{$index + 1}} is {{num}}</h3>
+</span>
+</body>
+</html>

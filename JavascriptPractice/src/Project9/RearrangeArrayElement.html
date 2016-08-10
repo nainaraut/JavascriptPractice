@@ -1,0 +1,33 @@
+<!--Given an array of size n where all elements are in range from 0 to n-1, change contents of arr[]
+so that arr[i] = j is changed to arr[j] = i. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        $scope.numArray = [1, 3, 0, 2];
+        var len = $scope.numArray.length;
+        for(var i=0;i<len;i++) {
+          $scope.numArray[$scope.numArray[i]%len] = $scope.numArray[$scope.numArray[i]%len] + i*len;
+        }
+        for(var i=0;i<len;i++){
+          $scope.numArray[i] = Math.floor($scope.numArray[i]/len);
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Rearrange Array</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>change contents of arr[] so that arr[i] = j is changed to arr[j] = i</h1>
+<span ng-repeat="num in numArray track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

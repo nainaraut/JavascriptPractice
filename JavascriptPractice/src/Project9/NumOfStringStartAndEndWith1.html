@@ -1,0 +1,29 @@
+<!--Given a binary string, count number of substrings that start and end with 1. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = "00100101";
+        var len = numArray.length, num = 0;
+        for(var i=0;i<len;i++){
+          if(numArray.charAt(i) == '1') {
+           num++;
+          }
+        }
+        $scope.numOfOneString = num * (num - 1)/2;
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>substrings that start and end with 1 : {{numOfOneString}}</h1>
+</body>
+</html>

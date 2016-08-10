@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [3, 1, 4, 6, 5];
+        var len = numArray.length;
+        $scope.triplets = [];
+        numArray.sort();
+        for(var i=len-1;i>1;i--){
+          var l = 0;
+          var r = i-1;
+          while(l < r) {
+            if(numArray[l]*numArray[l] + numArray[r]*numArray[r] > numArray[i]*numArray[i]) {
+              r--;
+            }
+            else if(numArray[l]*numArray[l] + numArray[r]*numArray[r] < numArray[i]*numArray[i]) {
+              l++;
+            }
+            else {
+              $scope.triplets.push(numArray[l]);
+              $scope.triplets.push(numArray[r]);
+              $scope.triplets.push(numArray[i]);
+              break;
+            }
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Pythagorean Triplets</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Pythagorean Triplets</h1>
+<span ng-repeat="num in triplets track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>
