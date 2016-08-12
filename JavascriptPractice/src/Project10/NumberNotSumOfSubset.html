@@ -1,0 +1,29 @@
+<!--Given a sorted array (sorted in non-decreasing order) of positive numbers, find the smallest positive integer value
+that cannot be represented as sum of elements of any subset of given set.
+Expected time complexity is O(n).-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 2, 6, 10, 11, 15];
+        var len = numArray.length;
+        $scope.result = 1;
+        for(var i=0;i<len && numArray[i] <= $scope.result; i++) {
+            $scope.result = $scope.result + numArray[i];
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>smallest positive integer</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>smallest positive integer value that cannot be represented as sum of elements of any subset of given set is : {{result}}</h1>
+</body>
+</html>

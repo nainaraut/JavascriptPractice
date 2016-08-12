@@ -1,0 +1,46 @@
+<!--Given three arrays sorted in non-decreasing order, print all common elements in these arrays.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray1 = [1, 5, 10, 20, 40, 80],
+            numArray2 = [6, 7, 20, 80, 100],
+            numArray3 = [3, 4, 15, 20, 30, 70, 80, 120],
+            i=0, j=0, k=0;
+        $scope.common = [];
+        while(i < numArray1.length && j < numArray2.length && k < numArray3.length){
+          if(numArray1[i] == numArray2[j] && numArray2[j] == numArray3[k]) {
+            $scope.common.push(numArray1[i]);
+            i++;
+            j++;
+            k++;
+          }
+          else if(numArray1[i] < numArray2[j]) {
+            i++;
+          }
+          else if(numArray2[j] < numArray3[k]) {
+            j++;
+          }
+          else {
+           k++;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>common elements</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>All common elements in these arrays are</h1>
+<span ng-repeat="num in common track by $index">
+  <h3>{{num}}</h3>
+</span>
+</body>
+</html>

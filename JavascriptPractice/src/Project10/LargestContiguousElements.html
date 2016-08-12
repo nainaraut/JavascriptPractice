@@ -1,0 +1,42 @@
+<!--Given an array of distinct integers, find length of the longest subarray which contains numbers
+that can be arranged in a continuous sequence. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 56, 58, 57, 90, 92, 94, 93, 91, 45];
+        var len = numArray.length;
+        $scope.max_length = 0;
+        for(var i=0;i<len-1;i++) {
+          var max = numArray[i];
+          var min = numArray[i];
+          for(var j=i+1;j<len;j++) {
+            if(numArray[j] > max){
+              max = numArray[j];
+            }
+            if(numArray[j] < min){
+              min = numArray[j];
+            }
+            if((max - min) == j - i) {
+              if(j-i+1 > $scope.max_length) {
+                 $scope.max_length = j-i+1;
+              }
+            }
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Equilibrium index of an array is : {{max_length}}</h1>
+</body>
+</html>

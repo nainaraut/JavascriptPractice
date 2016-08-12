@@ -1,0 +1,55 @@
+<!--Given two sorted arrays such the arrays may have some common elements. Find the sum of the maximum sum
+path to reach from beginning of any array to end of any of the two arrays.
+We can switch from one array to another array only at common elements. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray1 = [2, 3, 7, 10, 12], numArray2 = [1, 5, 7, 8], sum1 = 0, sum2 = 0;
+        var result = 0, i = 0, j = 0;
+        while(i < numArray1.length && j < numArray2.length) {
+          if(numArray1[i] < numArray2[j]) {
+            sum1 = sum1 + numArray1[i];
+            i++;
+          }
+          else if(numArray1[i] > numArray2[j]) {
+            sum2 = sum2 + numArray2[j];
+            j++;
+          }
+          else if(numArray1[i] == numArray2[j]) {
+            result = result + Math.max(sum1, sum2);
+            sum1 = 0;
+            sum2 = 0;
+            while(i < numArray1.length && j < numArray2.length && numArray1[i] == numArray2[j]) {
+              result = result + numArray1[i];
+              i++;
+              j++;
+            }
+          }
+        }
+        while(i < numArray1.length) {
+          sum1 = sum1 + numArray1[i];
+          i++;
+        }
+        while(j < numArray2.length) {
+          sum2 = sum2 + numArray2[j];
+          j++;
+        }
+        result = result + Math.max(sum1,sum2);
+        $scope.maxSum = result;
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>sum of the maximum sum path : {{maxSum}}</h1>
+</body>
+</html>

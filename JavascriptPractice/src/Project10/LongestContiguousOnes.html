@@ -1,0 +1,38 @@
+<!--Given an array of 0s and 1s, find the position of 0 to be replaced with 1 to get longest continuous sequence of 1s.
+Expected time complexity is O(n) and auxiliary space is O(1). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1];
+        var len = numArray.length, prev_prev_zero = -1; prev_zero = -1, max_len = 0;
+        $scope.position = 0;
+        for(var i=0;i<len;i++) {
+          if(numArray[i] == 0) {
+            if(i - prev_prev_zero > max_len) {
+              max_len = i - prev_prev_zero;
+              $scope.position = prev_zero;
+            }
+            prev_prev_zero = prev_zero;
+            prev_zero = i;
+          }
+        }
+        if(len - prev_prev_zero > max_len) {
+          $scope.position = prev_zero;
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>longest continuous sequence of 1s</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>position of 0 to be replaced with 1 to get longest continuous sequence of 1s is : {{position}}</h1>
+</body>
+</html>
