@@ -1,0 +1,47 @@
+<!--Given an array of 1s and 0s which has all 1s first followed by all 0s.
+Find the number of 0s. Count the number of zeroes in the given array.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 1, 1, 1, 0, 0];
+        var len = numArray.length;
+        var zeroIndex = findMidZero(0,len-1);
+        if(zeroIndex == -1) {
+          $scope.numOfZeros = -1;
+        }
+        else {
+          $scope.numOfZeros = len - zeroIndex;
+        }
+        function findMidZero(start,end) {
+          if(end >= start) {
+            var mid = Math.floor((start + end )/2);
+            console.log(mid);
+            if(numArray[mid] == 0 && (numArray[mid-1] == 1 || mid == 0)) {
+              return mid;
+            }
+            if(numArray[mid] == 1) {
+              return findMidZero(mid+1,end);
+            }
+            else {
+              return findMidZero(start,mid-1);
+            }
+          }
+          return -1;
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>number of zeroes</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Number of zeroes in the given array are : {{numOfZeros}}</h1>
+</body>
+</html>

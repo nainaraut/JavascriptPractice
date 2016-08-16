@@ -1,0 +1,37 @@
+<!--Given an array of integers and a number x, find the smallest subarray with sum greater than the given value. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var numArray = [1, 4, 45, 6, 0, 19], val = 51, start=0, end=0;
+        var len = numArray.length, sum = 0;
+        $scope.minLen = Number.MAX_VALUE;
+        while(end < len) {
+          while(sum <= val && end < len) {
+            sum = sum + numArray[end];
+            end++;
+          }
+          while(sum > val && start < len) {
+            if(end - start < $scope.minLen) {
+              $scope.minLen = end - start;
+            }
+            sum = sum - numArray[start];
+            start++;
+          }
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>consecutive numbers</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Smallest subarray with sum greater than the given value : {{minLen}}</h1>
+</body>
+</html>
