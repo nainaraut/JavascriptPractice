@@ -1,0 +1,75 @@
+<!--Given only a pointer/reference to a node to be deleted in a singly linked list, how do you delete it? -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        list.print();
+        list.deleteNode(list.head);
+        console.log(After Deleting the head node);
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.deleteNode = function(delNode) {
+            var temp = delNode.next;
+            delNode.data = temp.data;
+            delNode.next = temp.next;
+            temp = null;
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Nth node from end</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Deleting node from linked list</h1>
+</body>
+</html>

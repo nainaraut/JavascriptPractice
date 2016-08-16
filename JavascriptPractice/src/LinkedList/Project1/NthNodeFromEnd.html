@@ -1,0 +1,86 @@
+<!--Given a Linked List and a number n, write a function that returns the value at the n’th node from end of the Linked List. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        list.print();
+        $scope.nthNode = list.findNthNodeFromEnd(2);
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.findNthNodeFromEnd = function(n) {
+            var node = this.head;
+            var refNode = this.head;
+            var count = 0;
+            while(count < n && refNode != null) {
+              refNode = refNode.next;
+              count++;
+            }
+            if(count == n) {
+              while(refNode != null) {
+                refNode = refNode.next;
+                node = node.next;
+              }
+              return node.data;
+            }
+            else {
+              return -1;
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Nth node from end</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Nth node from the end where n = 2 is : {{nthNode}}</h1>
+</body>
+</html>
