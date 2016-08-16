@@ -1,0 +1,79 @@
+<!--Given a singly linked list, write a function to swap elements pairwise. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        console.log("Before swap");
+        list.print();
+        list.swap();
+        console.log("After swap");
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.swap = function() {
+            var node = this.head;
+            while(node.next != null) {
+              var temp = node.data;
+              node.data = node.next.data;
+              node.next.data = temp;
+              node = node.next;
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Pairwise swap</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Pairwise swap</h1>
+</body>
+</html>

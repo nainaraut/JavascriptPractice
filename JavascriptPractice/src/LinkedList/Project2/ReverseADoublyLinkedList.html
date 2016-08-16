@@ -1,0 +1,86 @@
+<!--Write a function to reverse a given Doubly Linked List -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        console.log("Original List");
+        list.print();
+        list.reverse();
+        console.log("Reversed List");
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+          this.prev = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null) {
+             currNode = currNode.next;
+            }
+            node.prev = currNode;
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.reverse = function(n) {
+            var node = this.head;
+            var prev = null, next = null;
+            while(node != null) {
+              next = node.next;
+              prev = node.prev;
+              node.next = prev;
+              node.prev = next;
+              node = next;
+            }
+            if(prev != null) {
+              this.head = prev.prev;
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Reverse Doubly Linked List</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Reverse Doubly Linked List</h1>
+</body>
+</html>

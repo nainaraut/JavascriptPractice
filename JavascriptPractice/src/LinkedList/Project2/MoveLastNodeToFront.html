@@ -1,0 +1,81 @@
+<!--Write a function that moves last element to front in a given Singly Linked List -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        console.log("Before Moving");
+        list.print();
+        console.log("After Moving");
+        list.moveLastToFront();
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.moveLastToFront = function() {
+            var node = this.head;
+            var prev = null;
+            while(node.next != null) {
+               prev = node;
+               node = node.next;
+            }
+            prev.next = null;
+            node.next = this.head;
+            this.head = node;
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Moving last to first</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Moving last to first</h1>
+</body>
+</html>

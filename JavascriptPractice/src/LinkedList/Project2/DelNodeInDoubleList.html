@@ -1,0 +1,82 @@
+<!--Write a function to delete a given node in a doubly linked list. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        console.log("Before Deletion");
+        list.print();
+        list.delNode(list.head.next);
+        console.log("After Deletion");
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+          this.prev = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null) {
+             currNode = currNode.next;
+            }
+            node.prev = currNode;
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.delNode = function(n) {
+            if(this.head == n) {
+              head.next = this.head;
+              this.head = null;
+              return;
+            }
+            n.prev.next = n.next;
+            n.next.prev = n.prev;
+            n = null;
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Delete node</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Delete Node in doubly linked list</h1>
+</body>
+</html>

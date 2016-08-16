@@ -1,0 +1,92 @@
+<!--Split a Circular Linked List into two halves -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.head.next.next.next.next.next = list.head;
+        console.log("Before splitting");
+        list.print(list.head);
+        list.splitIntoHalf();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function(headNode) {
+            var currNode = headNode;
+            while(currNode.next != headNode) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+            console.log(currNode.data);
+          },
+
+          this.splitIntoHalf = function() {
+            var fast = this.head;
+            var slow = this.head;
+            while(fast.next != this.head && fast.next.next != this.head){
+              slow = slow.next;
+              fast = fast.next.next;
+            }
+
+            if(fast.next.next == this.head) {  //even
+              fast = fast.next;
+            }
+            var head1 = this.head;
+            var head2 = null;
+            if(head1.next != null) {
+              var head2 = slow.next;
+            }
+            slow.next = head1;
+            fast.next = head2;
+            console.log("Splitted list 1");
+            this.print(head1);
+            console.log("Splitted list 2");
+            this.print(head2);
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Split into half</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Split a Circular Linked List into two halves</h1>
+</body>
+</html>
