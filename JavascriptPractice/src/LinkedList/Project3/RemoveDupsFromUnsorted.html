@@ -9,21 +9,22 @@
       angular.module("myApp",[]).
       controller("myController",['$scope',function($scope) {
         var list = new singlyList();
+        list.add(4);
         list.add(1);
+        list.add(8);
         list.add(2);
         list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
-        console.log("Original Linked List");
+        list.add(10);
+        console.log("Before Deletion");
         list.print();
-        var root = list.constructBST(6);
-        console.log("BST in Preorder");
-        list.preorderPrint(root);
+        list.delNode(list.head.next);
+        console.log("After Deletion");
+        list.print();
 
         function Node(data) {
           this.data = data;
           this.next = null;
+          this.prev = null;
         }
 
         function singlyList() {
@@ -40,9 +41,10 @@
               this._length++;
               return node;
             }
-            while(currNode.next != null){
+            while(currNode.next != null) {
              currNode = currNode.next;
             }
+            node.prev = currNode;
             currNode.next = node;
             this._length++;
             return node;
@@ -56,25 +58,15 @@
             }
           },
 
-          this.preorderPrint = function(root) {
-            if(root == null) {
+          this.delNode = function(n) {
+            if(this.head == n) {
+              head.next = this.head;
+              this.head = null;
               return;
             }
-            console.log(root.data);
-            this.preorderPrint(root.prev);
-            this.preorderPrint(root.next);
-          }
-
-          this.constructBST = function(n) {
-            if(n <= 0) {
-              return null;
-            }
-            var left = this.constructBST(Math.floor(n/2));
-            var root = this.head;
-            root.prev = left;
-            this.head = this.head.next;
-            root.next = this.constructBST(Math.ceil(n - n/2 - 1));
-            return root;
+            n.prev.next = n.next;
+            n.next.prev = n.prev;
+            n = null;
           };
         }
 
