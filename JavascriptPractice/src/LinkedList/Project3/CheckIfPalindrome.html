@@ -1,0 +1,96 @@
+<!--Given a singly linked list of characters, write a function that returns true if the given list is palindrome, else false.  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(8);
+        list.add(1);
+        list.add(4);
+        list.print();
+        list.checkPalindrome();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.checkPalindrome = function(n) {
+            var fast = this.head;
+            var slow = this.head;
+            while(fast.next != null && fast.next.next != null) {
+              fast = fast.next.next;
+              slow = slow.next;
+            }
+            if(fast.next != null) {
+              fast = fast.next;
+            }
+            reverse(this.head);
+            var head2 = slow.next;
+            while(this.head != slow.next && head2 != fast.next) {
+              if(head.data != head2.data) {
+                console.log("Not a palindrome");
+                return;
+              }
+              console.log("Is a palindrome");
+            }
+
+            function reverse(currNode){
+              if(currNode == slow) {
+                this.head = slow;
+                return slow;
+              }
+              this.head.next = reverse(currNode.next);
+            }
+
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Palindrome</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Check if Palindrome</h1>
+</body>
+</html>

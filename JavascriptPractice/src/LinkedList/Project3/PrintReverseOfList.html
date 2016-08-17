@@ -1,0 +1,78 @@
+<!--Given a linked list, print reverse of it using a recursive function.
+For example, if the given linked list is 1->2->3->4, then output should be 4->3->2->1. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(4);
+        list.add(1);
+        list.add(8);
+        list.add(2);
+        list.add(3);
+        list.add(10);
+        console.log("original List");
+        list.print();
+        console.log("Reversed List");
+        list.printReverse(list.head);
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.printReverse = function(currNode) {
+            if(currNode == null) {
+              return;
+            }
+            this.printReverse(currNode.next);
+            console.log(currNode.data);
+          };
+
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Reverse</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Reverse linked list</h1>
+</body>
+</html>

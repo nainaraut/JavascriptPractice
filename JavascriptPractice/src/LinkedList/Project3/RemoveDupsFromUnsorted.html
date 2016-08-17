@@ -1,0 +1,90 @@
+<!--Write a removeDuplicates() function which takes a list and deletes any duplicate nodes from the list. The list is not sorted. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        console.log("Original Linked List");
+        list.print();
+        var root = list.constructBST(6);
+        console.log("BST in Preorder");
+        list.preorderPrint(root);
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.preorderPrint = function(root) {
+            if(root == null) {
+              return;
+            }
+            console.log(root.data);
+            this.preorderPrint(root.prev);
+            this.preorderPrint(root.next);
+          }
+
+          this.constructBST = function(n) {
+            if(n <= 0) {
+              return null;
+            }
+            var left = this.constructBST(Math.floor(n/2));
+            var root = this.head;
+            root.prev = left;
+            this.head = this.head.next;
+            root.next = this.constructBST(Math.ceil(n - n/2 - 1));
+            return root;
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Remove Duplicates</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Remove Duplicates from unsorted linked list</h1>
+</body>
+</html>

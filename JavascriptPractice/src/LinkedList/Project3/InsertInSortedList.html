@@ -1,0 +1,82 @@
+<!--Given a linked list which is sorted, how will you insert in sorted way-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new singlyList();
+        list.add(2);
+        list.add(4);
+        list.add(5);
+        list.add(9);
+        list.add(15);
+        list.add(20);
+        console.log("Original list");
+        list.print();
+        list.sortedInsert(3);
+        console.log("After insert");
+        list.print();
+
+        function Node(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function singlyList() {
+          this._length = 0;
+          this.head = null;
+        }
+
+        function singlyList() {
+          this.add = function(value) {
+            var node = new Node(value);
+            currNode = this.head;
+            if(!currNode) {
+              this.head = node;
+              this._length++;
+              return node;
+            }
+            while(currNode.next != null){
+             currNode = currNode.next;
+            }
+            currNode.next = node;
+            this._length++;
+            return node;
+          },
+
+          this.print = function() {
+            currNode = this.head;
+            while(currNode != null) {
+              console.log(currNode.data);
+              currNode = currNode.next;
+            }
+          },
+
+          this.sortedInsert = function(n) {
+            var node = this.head;
+            var newNode = new Node(n);
+            if(node.next != null) {
+              while(node.data < n) {
+                prev = node;
+                node = node.next;
+              }
+              prev.next = newNode;
+              newNode.next = node;
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>insert in sorted way</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>insert in sorted way</h1>
+</body>
+</html>
