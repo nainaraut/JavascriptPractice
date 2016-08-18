@@ -1,0 +1,84 @@
+<!--To find Ceil of a given value in BST -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root = list.add(list.root, 4);
+        list.add(list.root, 2);
+        list.add(list.root, 1);
+        list.add(list.root, 3);
+        list.add(list.root, 9);
+        list.add(list.root, 7);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+        console.log("Ceil of 6 in BST is "+list.findCeil(list.root, 6));
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.findCeil = function(node, value) {
+              if(node == null) {
+                return -1;
+              }
+              if(node == value) {
+                return node.data;
+              }
+              else if(value > node.data) {
+                return this.findCeil(node.right, value);
+              }
+              else {
+                var ceil = this.findCeil(node.left, value);
+                return (ceil >= value ? ceil : node.data);
+              }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Ceil of a given value</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Ceil of a given value in BST</h1>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!--Given Preorder traversal of a BST, check if each non-leaf node has only one child. Assume that the BST contains unique entries. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var pre = [20, 10, 11, 13, 12], flag = true;;
+        for(var i = 0;i < pre.length - 1; i++) {
+          var diff_next = pre[i] - pre[i+1];
+          var diff_last = pre[i] - pre[pre.length-1];
+          if(diff_next * diff_last < 0) {
+            flag = false;
+            break;
+          }
+        }
+        if(flag){
+          console.log("BST is a single child");
+        }
+        else {
+          console.log("BST is not a single child");
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Only one child</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>check if each non-leaf node has only one child</h1>
+</body>
+</html>

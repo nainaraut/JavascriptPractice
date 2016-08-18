@@ -1,0 +1,86 @@
+<!--Given a Binary Search Tree (BST), convert it to a Binary
+Tree such that every key of the original BST is changed to key plus sum of all greater keys in BST -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root = list.add(list.root, 4);
+        list.add(list.root, 2);
+        list.add(list.root, 1);
+        list.add(list.root, 3);
+        list.add(list.root, 6);
+        list.add(list.root, 5);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+        var sum = new sum();
+        list.constructSumBST(list.root, sum);
+        console.log("Sum BST");
+        list.preOrderPrint(list.root);
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function sum() {
+          this.sum = 0;
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.constructSumBST = function(node, sumPtr) {
+              if(node == null) {
+                return;
+              }
+              this.constructSumBST(node.right, sumPtr);
+              sumPtr.sum = sumPtr.sum + node.data;
+              node.data = sumPtr.sum;
+              this.constructSumBST(node.left, sumPtr);
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Sum of all greater keys</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>convert it to a Binary Tree such that every key of the original BST is changed to key plus sum of all greater keys in BST</h1>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!--Two of the nodes of a Binary Search Tree (BST) are swapped. Fix (or correct) the BST.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root             = list.add(list.root, 6);
+        list.root.left        = new TreeNode(10);
+        list.root.right       = new TreeNode(2);
+        list.root.left.left   = new TreeNode(1);
+        list.root.left.right  = new TreeNode(3);
+        list.root.right.right = new TreeNode(12);
+        list.root.right.left  = new TreeNode(7);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+        list.correctBST(list.root, null, null, null, null);
+        console.log("Node to be swapped are:");
+        if(list.first && list.last) {
+          var temp = list.first.data;
+          list.first.data = list.last.data;
+          list.last.data = temp;
+          console.log(list.first.data + " and "+ list.last.data);
+        }
+        else if(list.first && list.middle) {
+          var temp = list.first.data;
+          list.first.data = list.middle.data;
+          list.middle.data = temp;
+          console.log(list.first.data+ " and "+ list.middle.data);
+        }
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+          this.first = null;
+          this.middle = null;
+          this.last = null;
+          this.prev = null;
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.correctBST = function(node) {
+            if(node != null) {
+              this.correctBST(node.left);
+              if(this.prev != null && node.data < this.prev.data) {
+                if(this.first == null) {
+                  this.first = this.prev;
+                  this.middle = node;
+                }
+                else {
+                  this.last = node;
+                }
+              }
+              this.prev = node;
+              this.correctBST(node.right);
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>swapped</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Two of the nodes of a Binary Search Tree (BST) are swapped. Fix (or correct) the BST.</h1>
+</body>
+</html>
