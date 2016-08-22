@@ -1,0 +1,150 @@
+<!--Given root of binary search tree and K as input, find K-th smallest element in BST. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root = list.add(list.root, 20);
+        list.add(list.root, 8);
+        list.add(list.root, 4);
+        list.add(list.root, 12);
+        list.add(list.root, 10);
+        list.add(list.root, 14);
+        list.add(list.root, 22);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+        var res = list.KSmallest(list.root, 5);
+        console.log("Kth (5th) smallest node is "+res.data);
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function StackNode(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function StackStruct() {
+          this.stackLength = 0;
+          this.top = null;
+        }
+
+        function StackStruct() {
+          this.push = function(data) {
+            var node = new StackNode(data);
+            if(this.top == null) {
+              this.top = node;
+              return node;
+            }
+            node.next = this.top;
+            this.top = node;
+            return node;
+          }
+
+          this.pop = function() {
+            if(this.top == null) {
+              return null;
+            }
+            var temp = this.top;
+            this.top = this.top.next;
+            return temp;
+          }
+
+          this.peek = function() {
+            if(this.top == null) {
+              return -1;
+            }
+            return this.top;
+          }
+
+          this.isEmpty = function() {
+            if(this.top == null) {
+              return true;
+            }
+            else {
+              return false;
+            }
+          }
+
+          this.print = function(top) {
+            while(top != null) {
+              console.log(top.data.data);
+              top = top.next;
+            }
+          }
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.KSmallest = function(node, k) {
+            var stack = new StackStruct();
+            var nCrawl = node;
+            while(nCrawl != null) {
+              stack.push(nCrawl);
+              nCrawl = nCrawl.left;
+            }
+
+            while(node = stack.pop()) {
+              var nCrawl = node.data;
+              k--;
+              if(k == 0) {
+                break;
+              }
+              if(nCrawl.right) {
+                nCrawl = nCrawl.right;
+                while(nCrawl) {
+                  stack.push(nCrawl);
+                  nCrawl = nCrawl.left;
+                }
+              }
+            }
+            return nCrawl;
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>K-th smallest element</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>K-th smallest element</h1>
+</body>
+</html>

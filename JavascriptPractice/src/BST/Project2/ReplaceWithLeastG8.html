@@ -1,0 +1,100 @@
+<!--Given an array of integers, replace every element with the least greater element on its right side in the array.
+If there are no greater element on right side, replace it with -1. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        var arr = [8, 58, 71, 18, 31, 32, 63, 92,
+                  43, 3, 91, 93, 25, 80, 28];
+        list.replace(arr);
+        for(var i=0; i<arr.length; i++) {
+          console.log(arr[i]);
+        }
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function successorStruct() {
+          this.succ = null;
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.successor = function(node, data, successorStr) {
+            if(data < node.data) {
+              successorStr.succ = node.data;
+              if(node.left == null) {
+                node.left = new TreeNode(data);
+              }
+              this.successor(node.left, data, successorStr);
+            }
+            else if(data > node.data) {
+              if(node.right == null) {
+                node.right = new TreeNode(data);
+              }
+              this.successor(node.right, data, successorStr);
+            }
+          }
+          this.replace = function(arr) {
+            this.root = new TreeNode(arr[arr.length-1]);
+            for(var i=arr.length-1; i>-1; i--) {
+              var successorStr = new successorStruct();
+              this.successor(this.root, arr[i], successorStr);
+              if(successorStr.succ) {
+                arr[i] = successorStr.succ;
+              }
+              else {
+                arr[i] = -1;
+              }
+            }
+
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>least greater element</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>least greater element on its right side in the array</h1>
+</body>
+</html>

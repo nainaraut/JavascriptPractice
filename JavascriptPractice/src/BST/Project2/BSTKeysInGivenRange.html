@@ -1,0 +1,84 @@
+<!--Given two values k1 and k2 (where k1 < k2) and a root pointer to a Binary Search Tree.
+Print all the keys of tree in range k1 to k2. i.e. print all x such that k1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root = list.add(list.root, 20);
+        list.add(list.root, 8);
+        list.add(list.root, 22);
+        list.add(list.root, 4);
+        list.add(list.root, 12);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+        console.log("Keys in the range are");
+        list.findKeys(list.root, 10, 25);
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.findKeys = function(node, k1, k2) {
+              if(node == null) {
+                return;
+              }
+              if(node.data > k1) {
+                this.findKeys(node.left, k1, k2);
+              }
+              if(node.data >= k1 && node.data <= k2) {
+                console.log(node.data);
+              }
+              if(node.data < k2) {
+                this.findKeys(node.right, k1, k2);
+              }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>tree in range k1 to k2</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>tree in range k1 to k2</h1>
+</body>
+</html>

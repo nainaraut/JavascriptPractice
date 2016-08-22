@@ -1,0 +1,109 @@
+<!--Given a Binary Tree, convert it to a Binary Search Tree.
+The conversion must be done in such a way that keeps the original structure of Binary Tree. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list = new TreeStruct();
+        list.root             = new TreeNode(10);
+        list.root.left        = new TreeNode(30);
+        list.root.right       = new TreeNode(15);
+        list.root.left.left   = new TreeNode(20);
+        list.root.right.right = new TreeNode(5);
+        console.log("Original BST");
+        list.preOrderPrint(list.root);
+
+        list.fillArr(list.root);
+        list.pre.sort(function(a,b) {
+          if(a < b) {
+            return -1;
+          }else if(a > b) {
+            return 1;
+          }
+          else {
+            return 0;
+          }
+        });
+        console.log(list.pre);
+
+        var list2 = new TreeStruct();
+        list2.root = list2.add(list2.root, list.pre[0]);
+
+        for(var i=1; i<list.pre.length; i++) {
+          list2.add(list2.root, list.pre[i]);
+        }
+        console.log("Converted BST");
+        list.preOrderPrint(list2.root);
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function TreeStruct() {
+          this.pre = [];
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.preOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              console.log(node.data);
+              this.preOrderPrint(node.left);
+              this.preOrderPrint(node.right);
+          },
+
+          this.fillArr = function(node) {
+              if(node == null) {
+                return;
+              }
+              this.pre.push(node.data);
+              this.fillArr(node.left);
+              this.fillArr(node.right);
+          },
+
+          this.convert = function(node) {
+            this.preOrderPrint(this.root);
+            this.pre.sort();
+            var list = new TreeStruct();
+            list.root = list.add(list.root, this.pre[0]);
+            for(var i=1; i<this.pre.length; i++) {
+              list.add(list.root, this.pre[i]);
+            }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>Convert</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>Binary Tree, convert it to a Binary Search Tree</h1>
+</body>
+</html>

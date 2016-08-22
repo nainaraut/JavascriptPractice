@@ -1,0 +1,192 @@
+<!--Given two Binary Search Trees(BST), print the elements of both BSTs in sorted form.The expected time complexity is
+O(m+n) where m is the number of nodes in first tree andn is the number of nodes in second tree. Maximum allowed
+auxiliary space is O(height of the first tree + height of the second tree). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script>
+    (function(angular) {
+      angular.module("myApp",[]).
+      controller("myController",['$scope',function($scope) {
+        var list1 = new TreeStruct();
+        list1.root = list1.add(list1.root, 3);
+        list1.add(list1.root, 1);
+        list1.add(list1.root, 5);
+        console.log("Original BST 1");
+        list1.inOrderPrint(list1.root);
+
+        var list2 = new TreeStruct();
+        list2.root = list2.add(list2.root, 4);
+        list2.add(list2.root, 2);
+        list2.add(list2.root, 6);
+        console.log("Original BST 2");
+        list2.inOrderPrint(list2.root);
+
+        console.log("Merged output");
+        list1.mergeBST(list1.root, list2.root);
+
+        function TreeNode(data) {
+          this.data = data;
+          this.left = null;
+          this.right = null;
+        }
+
+        function TreeStruct() {
+          this._length = 0;
+          this.root = null;
+        }
+
+        function StackNode(data) {
+          this.data = data;
+          this.next = null;
+        }
+
+        function StackStruct() {
+          this.stackLength = 0;
+          this.top = null;
+        }
+
+        function StackStruct() {
+          this.push = function(data) {
+            var node = new StackNode(data);
+            if(this.top == null) {
+              this.top = node;
+              return node;
+            }
+            node.next = this.top;
+            this.top = node;
+            return node;
+          }
+
+          this.pop = function() {
+            if(this.top == null) {
+              return null;
+            }
+            var temp = this.top;
+            this.top = this.top.next;
+            return temp;
+          }
+
+          this.peek = function() {
+            if(this.top == null) {
+              return -1;
+            }
+            return this.top;
+          }
+
+          this.isEmpty = function() {
+            if(this.top == null) {
+              return true;
+            }
+            else {
+              return false;
+            }
+          }
+
+          this.print = function(top) {
+            while(top != null) {
+              console.log(top.data.data);
+              top = top.next;
+            }
+          }
+        }
+
+        function TreeStruct() {
+          this.add = function(node, value) {
+              if(node == null) {
+                return (new TreeNode(value));
+              }
+              else {
+                if(value <= node.data) {
+                  node.left = this.add(node.left, value);
+                }
+                else {
+                  node.right = this.add(node.right, value);
+                }
+                return node;
+              }
+          },
+
+          this.inOrderPrint = function(node) {
+              if(node == null) {
+                return;
+              }
+              this.inOrderPrint(node.left);
+              console.log(node.data);
+              this.inOrderPrint(node.right);
+          },
+
+          this.mergeBST = function(node1, node2) {
+              var s1 = new StackStruct();
+              var s2 = new StackStruct();
+              var curr1 = node1, curr2 = node2;
+              if(node1 == null) {
+                this.inOrderPrint(node2);
+              }
+              if(node2 == null) {
+                this.inOrderPrint(node1);
+              }
+              while(curr1 != null || curr2 != null || !s1.isEmpty() || !s2.isEmpty()) {
+                if(curr1 != null || curr2 != null) {
+                  if(curr1 != null) {
+                    s1.push(curr1);
+                    curr1 = curr1.left;
+                  }
+                  if(curr2 != null) {
+                    s2.push(curr2);
+                    curr2 = curr2.left;
+                  }
+                }
+                else {
+                  if(s1.isEmpty()) {
+                    while(!s2.isEmpty()) {
+                      var data2 = s2.pop();
+                      curr2 = data2.data;
+                      curr2.left = null;
+                      this.inOrderPrint(curr2);
+                    }
+                    return;
+                  }
+                  if(s2.isEmpty()) {
+                    while(!s1.isEmpty()) {
+                      var data1 = s1.pop();
+                      curr1 = data1.data;
+                      curr1.left = null;
+                      this.inOrderPrint(curr1);
+                    }
+                    return;
+                  }
+                  var d1 = s1.pop();
+                  var d2 = s2.pop();
+                  curr1 = d1.data;
+                  curr2 = d2.data;
+                  if(curr1.data < curr2.data) {
+                    console.log(curr1.data);
+                    curr1 = curr1.right;
+                    s2.push(curr2);
+                    curr2 = null;
+
+                  }
+                  else {
+                    console.log(curr2.data);
+                    curr2 = curr2.right;
+                    s1.push(curr1);
+                    curr1 = null;
+                  }
+                }
+              }
+          };
+        }
+
+      }]);
+    })(window.angular);
+
+  </script>
+  <title>BSTs in sorted form</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<h1>BSTs in sorted form</h1>
+</body>
+</html>
